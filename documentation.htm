@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object-H API | Documentation</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: #334155;
+      --post: #f59e0b;
+      --get: #10b981;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    .badge {
+      font-size: 0.8rem;
+      font-weight: bold;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: #000;
+      display: inline-block;
+    }
+    .badge.post { background: var(--post); }
+    .badge.get { background: var(--get); }
+    .endpoint {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+    }
+    .endpoint h3 { margin-top: 0; display: flex; align-items: center; gap: 0.75rem; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); }
+    code { background: #090d16; padding: 0.2rem 0.4rem; border-radius: 4px; color: var(--accent); }
+    pre { background: #090d16; padding: 1rem; border-radius: 6px; overflow-x: auto; color: #a7f3d0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>API Reference</h1>
+      <a href="index.html">← Back to Home</a>
+    </header>
+
+    <main>
+      <section>
+        <h2>Supported Models</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Model Name</th>
+              <th>Identifier String</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.5-mini</td><td><code>openai/gpt-5-5-mini</code></td><td>Chat</td></tr>
+            <tr><td>Gemini 3.6-Flash</td><td><code>gemini/3-6_flash</code></td><td>Chat</td></tr>
+            <tr><td>Nano Banana 2</td><td><code>google/nano-banana-2</code></td><td>Image</td></tr>
+            <tr><td>Jimeng Seedance 2.0 Fast</td><td><code>bytedance/doubao-seedance-2-0-fast-260128</code></td><td>Video</td></tr>
+            <tr><td>Eleven v3</td><td><code>elevenlabs/eleven_v3</code></td><td>Audio</td></tr>
+            <tr><td>Eleven Flash 2.5</td><td><code>elevenlabs/eleven_flash_v2-5</code></td><td>Audio</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <h2>Endpoints (`/object-h/api/v1`)</h2>
+
+      <article class="endpoint">
+        <h3><span class="badge get">GET</span> <code>/resources</code></h3>
+        <p>Returns a list of all supported models and system status.</p>
+      </article>
+
+      <article class="endpoint">
+        <h3><span class="badge get">GET</span> <code>/localhost</code></h3>
+        <p>Healthcheck route confirming active local runtime environment details.</p>
+      </article>
+
+      <article class="endpoint">
+        <h3><span class="badge post">POST</span> <code>/chat/completions</code></h3>
+        <p>Generates chat completions for text models.</p>
+        <strong>Example Request Body:</strong>
+        <pre>{
+  "model": "gemini/3-6_flash",
+  "messages": [
+    { "role": "user", "content": "Hello world!" }
+  ]
+}</pre>
+      </article>
+
+      <article class="endpoint">
+        <h3><span class="badge post">POST</span> <code>/images/generations</code></h3>
+        <p>Generates image assets using Nano Banana 2.</p>
+        <strong>Example Request Body:</strong>
+        <pre>{
+  "model": "google/nano-banana-2",
+  "prompt": "Futuristic neon city",
+  "n": 1
+}</pre>
+      </article>
+
+      <article class="endpoint">
+        <h3><span class="badge post">POST</span> <code>/video/generations/</code></h3>
+        <p>Initiates video generation task using Jimeng Seedance 2.0 Fast.</p>
+        <strong>Example Request Body:</strong>
+        <pre>{
+  "model": "bytedance/doubao-seedance-2-0-fast-260128",
+  "prompt": "Ocean waves at sunrise",
+  "duration": 5
+}</pre>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
