@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object-H API | Home</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: #334155;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 { margin: 0; font-size: 1.8rem; color: var(--accent); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.9; }
+    pre {
+      background: #090d16;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #a7f3d0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Object-H API Engine</h1>
+      <nav>
+        <a href="documentation.htm">Documentation</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>API Status & Health</h2>
+        <p>Active Base Route: <code>/object-h/api/v1</code></p>
+        <button id="checkStatus">Check Health (/localhost)</button>
+        <pre id="output">// Response output will appear here...</pre>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('checkStatus').addEventListener('click', async () => {
+      const output = document.getElementById('output');
+      output.textContent = "Fetching...";
+      try {
+        const res = await fetch('/object-h/api/v1/localhost');
+        const data = await res.json();
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.textContent = `Error connecting to endpoint: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
